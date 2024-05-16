@@ -20,13 +20,13 @@ const links = [
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
 ];
+const pathname = usePathname();
 
 export default function NavLinks() {
   return (
     <>
       {links.map((link) => {
         const LinkIcon = link.icon;
-        const pathname = usePathname();
         return (
           <Link
             key={link.name}
