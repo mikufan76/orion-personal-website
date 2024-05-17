@@ -23,7 +23,7 @@ export default function Page() {
       const index = Math.floor(Math.random() * thoughts.length);
       setThought(thoughts[index]);
       setLoading(false);
-    }, 3000);
+    }, 2000);
   }
 
   return (
