@@ -31,7 +31,7 @@ export default function Page() {
           height={620}
           alt="Mila smiling"
         />
-        <Button onClick={handleClick}>Let's go</Button>
+        <Button onClick={handleClick}>Thinking time</Button>
       </Flex>
     </main>
   );
