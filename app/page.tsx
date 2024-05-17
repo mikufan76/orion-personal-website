@@ -1,37 +1,56 @@
 'use client';
-import AcmeLogo from '@/app/ui/acme-logo';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import Link from 'next/link';
-import { lusitana } from './ui/fonts';
-import Image from 'next/image';
-import { Flex, Text, Button, Spinner } from '@radix-ui/themes';
+import { Container, Text, Button, Spinner, Flex } from '@radix-ui/themes';
 import { useState } from 'react';
+import * as Tooltip from '@radix-ui/react-tooltip';
+import * as Avatar from '@radix-ui/react-avatar';
 
 export default function Page() {
+  const thoughts = [
+    'Greenies <3',
+    'Guard Dog Mode: Activated',
+    'Who is at the door?!??!?!?!?',
+    'AWOO AWOOOOO',
+    'Give me belly rubs rn or i will be so sad',
+    'I am afraid of men',
+  ];
+  const [thought, setThought] = useState('Hmmmm....');
   const [loading, setLoading] = useState(false);
-  function handleClick() {
-    setLoading(!loading);
+
+  async function generateThoughts() {
+    if (loading) return;
+    setLoading(true);
+    setTimeout(() => {
+      const index = Math.floor(Math.random() * thoughts.length);
+      setThought(thoughts[index]);
+      setLoading(false);
+    }, 3000);
   }
 
   return (
-    <main className="flex min-h-screen flex-col p-6">
-      <Flex direction="column" gap="2" justify={'center'} align={'center'}>
-        <Spinner loading={loading} size="3" />
-        <Image
-          src="/milasmall.png"
-          width={1000}
-          height={760}
-          className="hidden md:block"
-          alt="Mila wearing an outfit. Her ears are covered. Absolute unit."
-        />
-        <Image
-          className="block md:hidden"
-          src="/milasmile.png"
-          width={560}
-          height={620}
-          alt="Mila smiling"
-        />
-        <Button onClick={handleClick}>Thinking time</Button>
+    <main>
+      <Flex
+        height={'100vh'}
+        width={'100vw'}
+        justify={'center'}
+        align={'center'}
+      >
+        <Tooltip.Provider delayDuration={400}>
+          <Tooltip.Root onOpenChange={generateThoughts}>
+            <Tooltip.Trigger>
+              {/*AVARTAR*/}
+              <Avatar.Root>
+                <Avatar.Image src="/milasmall.png" />
+              </Avatar.Root>
+              {/* AVATAR END */}
+            </Tooltip.Trigger>
+            <Tooltip.Portal>
+              <Tooltip.Content className="TooltipContent" side="top">
+                {thought}
+                <Tooltip.Arrow className="TooltipArrow" />
+              </Tooltip.Content>
+            </Tooltip.Portal>
+          </Tooltip.Root>
+        </Tooltip.Provider>
       </Flex>
     </main>
   );
